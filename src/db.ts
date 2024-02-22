@@ -21,7 +21,10 @@ export const initializeDatabase = async () => {
     await pool.query(createTableText);
     logger.log("info", "Categories table is ready");
   } catch (error) {
-    logger.error("Failed to connect to the database or create the table", error);
+    logger.error(
+      "Failed to connect to the database or create the table",
+      error,
+    );
     if (process.env.NODE_ENV !== "test") {
       process.exit(1); // Exit the application if we can't connect to the database or create the table
     }

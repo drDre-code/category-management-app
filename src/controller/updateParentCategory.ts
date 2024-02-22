@@ -16,7 +16,10 @@ export const UpdateParentCategory = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "New parent category not found" });
     }
 
-    await pool.query("UPDATE categories SET parent_id = $1 WHERE id = $2", [new_parent_id, id]);
+    await pool.query("UPDATE categories SET parent_id = $1 WHERE id = $2", [
+      new_parent_id,
+      id,
+    ]);
     return res.status(200).json({ message: "Subtree moved successfully" });
   } catch (error) {
     logger.error("Failed to move the subtree", error);

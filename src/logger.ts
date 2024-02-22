@@ -8,10 +8,11 @@ const logger = createLogger({
       format: "YYYY-MM-DD HH:mm:ss",
     }),
     format.printf(
-      (info) => `[Category service: ${info.timestamp as string}] ${info.level}: ${info.message}`
+      (info) =>
+        `[Category service: ${info.timestamp as string}] ${info.level}: ${info.message}`,
     ),
     format.errors({ stack: true }),
-    format.splat()
+    format.splat(),
   ),
   transports: [new transports.Console()],
 });

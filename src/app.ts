@@ -37,7 +37,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // Swagger documentation
 const swaggerDocumentPath = path.join(__dirname, "..", "API-docs.yaml");
 const swaggerDocument = YAML.load(swaggerDocumentPath);
@@ -60,7 +59,7 @@ app.patch(
   "/categories/:id/parent",
   CategoryParamsValidation,
   UpdateParentCategoryValidation,
-  UpdateParentCategory
+  UpdateParentCategory,
 );
 
 export default app;

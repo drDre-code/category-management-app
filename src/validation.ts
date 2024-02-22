@@ -14,7 +14,11 @@ const paramsSchema = Joi.object({
   id: Joi.number().integer().required(),
 });
 
-export function CreateCategoryValidation(req: Request, res: Response, next: NextFunction) {
+export function CreateCategoryValidation(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const { error } = categorySchema.validate(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
@@ -22,7 +26,11 @@ export function CreateCategoryValidation(req: Request, res: Response, next: Next
   next();
 }
 
-export function CategoryParamsValidation(req: Request, res: Response, next: NextFunction) {
+export function CategoryParamsValidation(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const { error } = paramsSchema.validate(req.params);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
@@ -30,7 +38,11 @@ export function CategoryParamsValidation(req: Request, res: Response, next: Next
   next();
 }
 
-export function UpdateParentCategoryValidation(req: Request, res: Response, next: NextFunction) {
+export function UpdateParentCategoryValidation(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const { error } = updateParentCategorySchema.validate(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });

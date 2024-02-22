@@ -11,7 +11,10 @@ export const GetSubCategories = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Category not found" });
     }
     // This is a simple example. For a real-world scenario, you might need a recursive query to fetch all descendants.
-    const result = await pool.query("SELECT * FROM categories WHERE parent_id = $1", [id]);
+    const result = await pool.query(
+      "SELECT * FROM categories WHERE parent_id = $1",
+      [id],
+    );
     return res.json(result.rows);
   } catch (error) {
     logger.error("Failed to fetch the subtree", error);

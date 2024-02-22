@@ -15,7 +15,7 @@ export const CreateCategory = async (req: Request, res: Response) => {
 
     const result = await pool.query(
       "INSERT INTO categories(name, parent_id) VALUES($1, $2) RETURNING *",
-      [name, parent_id]
+      [name, parent_id],
     );
     return res.status(201).json(result.rows[0]);
   } catch (error) {

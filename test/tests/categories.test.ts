@@ -15,7 +15,10 @@ describe("Category Endpoints", () => {
   });
 
   it("should create a new category if parent_id is existing", async () => {
-    const parentCategory = await insertTestCategory({ name: "Parent Category", parent_id: null });
+    const parentCategory = await insertTestCategory({
+      name: "Parent Category",
+      parent_id: null,
+    });
     const res = await request(app).post("/categories").send({
       name: "Test Category",
       parent_id: parentCategory.id,
@@ -27,7 +30,10 @@ describe("Category Endpoints", () => {
   });
 
   it("should return 400 if name is invalid", async () => {
-    const parentCategory = await insertTestCategory({ name: "Parent Category", parent_id: null });
+    const parentCategory = await insertTestCategory({
+      name: "Parent Category",
+      parent_id: null,
+    });
     const res = await request(app).post("/categories").send({
       name: "",
       parent_id: parentCategory.id,
@@ -47,8 +53,14 @@ describe("Category Endpoints", () => {
   });
 
   it("should fetch top-level categories", async () => {
-    const parentCategory = await insertTestCategory({ name: "Parent Category", parent_id: null });
-    await insertTestCategory({ name: "Child Category", parent_id: parentCategory.id });
+    const parentCategory = await insertTestCategory({
+      name: "Parent Category",
+      parent_id: null,
+    });
+    await insertTestCategory({
+      name: "Child Category",
+      parent_id: parentCategory.id,
+    });
 
     const res = await request(app).get("/categories/top-level");
 
@@ -59,7 +71,10 @@ describe("Category Endpoints", () => {
   });
 
   it("should remove a category", async () => {
-    const testCategory = await insertTestCategory({ name: "Category to Remove", parent_id: null });
+    const testCategory = await insertTestCategory({
+      name: "Category to Remove",
+      parent_id: null,
+    });
     const res = await request(app).delete(`/categories/${testCategory.id}`);
 
     expect(res.statusCode).toEqual(204);
@@ -78,10 +93,18 @@ describe("Category Endpoints", () => {
   });
 
   it("should fetch a subtree of categories", async () => {
-    const parentCategory = await insertTestCategory({ name: "Parent Category", parent_id: null });
-    await insertTestCategory({ name: "Child Category", parent_id: parentCategory.id });
+    const parentCategory = await insertTestCategory({
+      name: "Parent Category",
+      parent_id: null,
+    });
+    await insertTestCategory({
+      name: "Child Category",
+      parent_id: parentCategory.id,
+    });
 
-    const res = await request(app).get(`/categories/${parentCategory.id}/subtree`);
+    const res = await request(app).get(
+      `/categories/${parentCategory.id}/subtree`,
+    );
 
     expect(res.statusCode).toEqual(200);
     expect(res.body).toBeInstanceOf(Array);
@@ -102,8 +125,14 @@ describe("Category Endpoints", () => {
   });
 
   it("should move a category to a new parent", async () => {
-    const parentCategory1 = await insertTestCategory({ name: "Parent 1", parent_id: null });
-    const parentCategory2 = await insertTestCategory({ name: "Parent 2", parent_id: null });
+    const parentCategory1 = await insertTestCategory({
+      name: "Parent 1",
+      parent_id: null,
+    });
+    const parentCategory2 = await insertTestCategory({
+      name: "Parent 2",
+      parent_id: null,
+    });
 
     const childCategory = await insertTestCategory({
       name: "Child",
@@ -118,7 +147,10 @@ describe("Category Endpoints", () => {
   });
 
   it("should return 400 if child category is invalid", async () => {
-    const parentCategory2 = await insertTestCategory({ name: "Parent 2", parent_id: null });
+    const parentCategory2 = await insertTestCategory({
+      name: "Parent 2",
+      parent_id: null,
+    });
 
     const res = await request(app)
       .patch(`/categories/invalidId/parent`)
@@ -136,7 +168,10 @@ describe("Category Endpoints", () => {
   });
 
   it("should return 404 if new parent catedory does not exist", async () => {
-    const parentCategory1 = await insertTestCategory({ name: "Parent 1", parent_id: null });
+    const parentCategory1 = await insertTestCategory({
+      name: "Parent 1",
+      parent_id: null,
+    });
 
     const childCategory = await insertTestCategory({
       name: "Child",
@@ -151,7 +186,10 @@ describe("Category Endpoints", () => {
   });
 
   it("should return 404 if child catedory does not exist", async () => {
-    const parentCategory2 = await insertTestCategory({ name: "Parent 2", parent_id: null });
+    const parentCategory2 = await insertTestCategory({
+      name: "Parent 2",
+      parent_id: null,
+    });
 
     const res = await request(app)
       .patch(`/categories/9999/parent`)
